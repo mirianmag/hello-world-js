@@ -1,0 +1,58 @@
+<html>
+<script>
+
+    function arredondar(valor) {
+        return Math.round(valor*100)/100
+    }
+    function calcularJuros(valor) {
+        juros = arredondar(valor * 0.1);
+        console.log(juros)
+        return juros
+    }
+
+    function calcularRendimentos(valor) {
+        rendimentos = arredondar(valor * 0.005);
+        console.log(rendimentos)
+        return rendimentos
+    }
+
+    function calcularSaldo(month, saldoInicial, expenses) {
+        console.log(month)
+        balance = saldoInicial 
+        for(expense of expenses){
+            balance += expense
+        }
+        
+        estaNegativo1 = balance < 0
+        if (estaNegativo1) {
+            juros1 = calcularJuros(balance);
+            balance = balance + juros
+        } else {
+            rendimentos = calcularRendimentos(balance);
+            balance += rendimentos
+        }
+        return balance;
+    }
+    saldoInicial = 0;
+    januaryExpenses = [3000, -1000, -200, -100, -100, -300, -300, -500]  
+    
+    saldo1 = calcularSaldo("janeiro", saldoInicial,januaryExpenses)
+    console.log(saldo1)
+
+    februaryExpenses = [3000, -1200, -250, -100, -100, -500, -1000]
+  
+    saldo2 = calcularSaldo("fevereiro", saldo1, februaryExpenses)
+    console.log(saldo2)
+   
+    marchExpenses = [4000, -1200, -200, -100, -200, -500, -800]
+    
+    saldo3 = calcularSaldo("marco", saldo2, marchExpenses)
+    console.log(saldo3)
+    acumuladoAno = saldo3
+    console.log("ano")
+    console.log(acumuladoAno)
+
+
+</script>
+
+</html>
