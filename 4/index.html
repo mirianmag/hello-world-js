@@ -35,25 +35,28 @@
 
     function calcularSaldo(month, saldoInicial, transactions) {
         console.log(month)
-        balance = saldoInicial 
+        totalizadorDoMes = {saldo: 0, saldoInicial, juros: 0, rendimentos: 0, receitas:0, despesas: 0}
+        totalizadorDoMes.saldo = saldoInicial 
         for(transaction of transactions){
             if(transaction.type === "income"){
-                balance += transaction.value
+                totalizadorDoMes.saldo += transaction.value
+                totalizadorDoMes.receitas += transaction.value
             } 
             if(transaction.type === "expense") {
-                balance -= transaction.value
+                totalizadorDoMes.saldo -= transaction.value
+                totalizadorDoMes.despesas += transaction.value
             }
         }
         
-        estaNegativo1 = balance < 0
+        estaNegativo1 =  totalizadorDoMes.saldo < 0
         if (estaNegativo1) {
-            juros1 = calcularJuros(balance);
-            balance = balance + juros
+            totalizadorDoMes.juros = calcularJuros( totalizadorDoMes.saldo);
+            totalizadorDoMes.saldo += arredondar(totalizadorDoMes.saldo + totalizadorDoMes.juros)
         } else {
-            rendimentos = calcularRendimentos(balance);
-            balance += rendimentos
+            totalizadorDoMes.rendimentos = calcularRendimentos( totalizadorDoMes.saldo);
+            totalizadorDoMes.saldo += rendimentos
         }
-        return balance;
+        return totalizadorDoMes;
     }
 
     saldoInicial = 0;
@@ -68,8 +71,8 @@
         new Transaction("Condo", "expense", 400),
     ]  
     
-    saldo1 = calcularSaldo("janeiro", saldoInicial, januaryExpenses)
-    console.log(saldo1)
+    totalizadorDoMes1 = calcularSaldo("janeiro", saldoInicial, januaryExpenses)
+    console.log(totalizadorDoMes1)
 
     februaryExpenses = [
         new Transaction("Salary", "income", 3000), 
@@ -84,8 +87,8 @@
         new Transaction("Farmacy", "expense", 100)
     ]
   
-    saldo2 = calcularSaldo("fevereiro", saldo1, februaryExpenses)
-    console.log(saldo2)
+    totalizadorDoMes2 = calcularSaldo("fevereiro", totalizadorDoMes1.saldo, februaryExpenses)
+    console.log(totalizadorDoMes2)
    
     marchExpenses = [
        new Transaction("Salary", "income", 4000), 
@@ -99,11 +102,11 @@
        new Transaction("Condo", "expense",  400)
     ]
     
-    saldo3 = calcularSaldo("marco", saldo2, marchExpenses)
+    saldo3 = calcularSaldo("marco", totalizadorDoMes2.saldo, marchExpenses)
     console.log(saldo3)
     acumuladoAno = saldo3
     console.log("ano")
-    console.log(acumuladoAno)
+    console.log(acumuladoAno.saldo)
 
 
 </script>
