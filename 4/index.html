@@ -1,0 +1,111 @@
+<html>
+<script>
+    class Transaction {
+        constructor(category, type, value){
+            if (type !== "income" && type !== "expense") {
+                throw new Error("Invalid Transaction: Type should be income or expense ")
+            }
+            if (value <= 0) {
+                throw new Error("Invalid Transaction: Value must be greater than zero ")
+            }
+            if (category === "") {
+                throw new Error("Invalid Transaction: Category is required")
+            }
+            this.category = category;
+            this.type = type;
+            this.value = value;
+        }
+    }
+
+    function arredondar(valor) {
+        return Math.round(valor*100)/100
+    }
+
+    function calcularJuros(valor) {
+        juros = arredondar(valor * 0.1);
+        console.log(juros)
+        return juros
+    }
+
+    function calcularRendimentos(valor) {
+        rendimentos = arredondar(valor * 0.005);
+        console.log(rendimentos)
+        return rendimentos
+    }
+
+    function calcularSaldo(month, saldoInicial, transactions) {
+        console.log(month)
+        balance = saldoInicial 
+        for(transaction of transactions){
+            if(transaction.type === "income"){
+                balance += transaction.value
+            } 
+            if(transaction.type === "expense") {
+                balance -= transaction.value
+            }
+        }
+        
+        estaNegativo1 = balance < 0
+        if (estaNegativo1) {
+            juros1 = calcularJuros(balance);
+            balance = balance + juros
+        } else {
+            rendimentos = calcularRendimentos(balance);
+            balance += rendimentos
+        }
+        return balance;
+    }
+
+    saldoInicial = 0;
+    januaryExpenses = [
+        new Transaction("Salary", "income", 3000), 
+        new Transaction("Rent", "expense", 1000), 
+        new Transaction("Energy Bill", "expense", 200), 
+        new Transaction("Water Bill", "expense", 100), 
+        new Transaction("Internet", "expense", 300), 
+        new Transaction("Transport", "expense", 300), 
+        new Transaction("Food", "expense", 500),
+        new Transaction("Condo", "expense", 400),
+    ]  
+    
+    saldo1 = calcularSaldo("janeiro", saldoInicial, januaryExpenses)
+    console.log(saldo1)
+
+    februaryExpenses = [
+        new Transaction("Salary", "income", 3000), 
+        new Transaction("Rent", "expense", 1200), 
+        new Transaction("Energy Bill", "expense", 250), 
+        new Transaction("Water Bill", "expense", 100), 
+        new Transaction("Internet", "expense", 100), 
+        new Transaction("Transport", "expense", 100), 
+        new Transaction("Hobby", "expense", 100), 
+        new Transaction("Food", "expense", 500), 
+        new Transaction("Condo", "expense", 400),
+        new Transaction("Farmacy", "expense", 100)
+    ]
+  
+    saldo2 = calcularSaldo("fevereiro", saldo1, februaryExpenses)
+    console.log(saldo2)
+   
+    marchExpenses = [
+       new Transaction("Salary", "income", 4000), 
+       new Transaction("Rent", "expense", 1200), 
+       new Transaction("Energy Bill", "expense",  200), 
+       new Transaction("Water Bill", "expense", 100), 
+       new Transaction("Internet", "expense",  200), 
+       new Transaction("Transport", "expense",  500), 
+       new Transaction("Hobby", "expense",  800),
+       new Transaction("Food", "expense",  1000),
+       new Transaction("Condo", "expense",  400)
+    ]
+    
+    saldo3 = calcularSaldo("marco", saldo2, marchExpenses)
+    console.log(saldo3)
+    acumuladoAno = saldo3
+    console.log("ano")
+    console.log(acumuladoAno)
+
+
+</script>
+
+</html>
