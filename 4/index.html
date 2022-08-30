@@ -11,9 +11,9 @@
             if (category === "") {
                 throw new Error("Invalid Transaction: Category is required")
             }
-            this.category = category;
-            this.type = type;
-            this.value = value;
+            this.category = category
+            this.type = type
+            this.value = value
         }
     }
 
@@ -22,20 +22,19 @@
     }
 
     function calcularJuros(valor) {
-        juros = arredondar(valor * 0.1);
+        juros = arredondar(valor * 0.1)
         console.log(juros)
         return juros
     }
 
     function calcularRendimentos(valor) {
-        rendimentos = arredondar(valor * 0.005);
-        console.log(rendimentos)
+        rendimentos = arredondar(valor * 0.005)
         return rendimentos
     }
 
     function calcularSaldo(month, saldoInicial, transactions) {
         console.log(month)
-        totalizadorDoMes = {saldo: 0, saldoInicial, juros: 0, rendimentos: 0, receitas:0, despesas: 0}
+        totalizadorDoMes = {saldo: 0, saldoInicial, juros: 0, rendimentos: 0, receitas:0, despesas: 0, distribuicaoDeDespesas: [] }
         totalizadorDoMes.saldo = saldoInicial 
         for(transaction of transactions){
             if(transaction.type === "income"){
@@ -47,7 +46,14 @@
                 totalizadorDoMes.despesas += transaction.value
             }
         }
-        
+
+        for (transaction of transactions) {
+            if(transaction.type === "expense") {
+                percentual = arredondar((transaction.value/totalizadorDoMes.despesas)*100)
+                console.log(transaction.category, percentual)
+                totalizadorDoMes.distribuicaoDeDespesas.push({category: transaction.category, percentual: percentual})
+            }        
+        }
         estaNegativo1 =  totalizadorDoMes.saldo < 0
         if (estaNegativo1) {
             totalizadorDoMes.juros = calcularJuros( totalizadorDoMes.saldo);
