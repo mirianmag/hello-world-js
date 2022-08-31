@@ -32,6 +32,18 @@
         return rendimentos
     }
 
+    function distributeExpense(transactions, total) {
+        distribuicaoDeDespesas = []
+        for (transaction of transactions) {
+            if(transaction.type === "expense") {
+                percentual = arredondar((transaction.value/total)*100)
+                console.log(transaction.category, percentual)
+                distribuicaoDeDespesas.push({category: transaction.category, percentual: percentual})
+            }        
+        }
+        return distribuicaoDeDespesas
+    }
+
     function calcularSaldo(month, saldoInicial, transactions) {
         console.log(month)
         totalizadorDoMes = {saldo: 0, saldoInicial, juros: 0, rendimentos: 0, receitas:0, despesas: 0, distribuicaoDeDespesas: [] }
@@ -46,14 +58,10 @@
                 totalizadorDoMes.despesas += transaction.value
             }
         }
+        
+        totalizadorDoMes.distribuicaoDeDespesas = distributeExpense(transactions, totalizadorDoMes.despesas)
 
-        for (transaction of transactions) {
-            if(transaction.type === "expense") {
-                percentual = arredondar((transaction.value/totalizadorDoMes.despesas)*100)
-                console.log(transaction.category, percentual)
-                totalizadorDoMes.distribuicaoDeDespesas.push({category: transaction.category, percentual: percentual})
-            }        
-        }
+        
         estaNegativo1 =  totalizadorDoMes.saldo < 0
         if (estaNegativo1) {
             totalizadorDoMes.juros = calcularJuros( totalizadorDoMes.saldo);
