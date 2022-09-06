@@ -32,25 +32,31 @@
         addTransaction (transaction){
             this.transactions.push(transaction);
         }
+
+        calcularSaldo () {
+           for (const transaction of this.transactions) {
+                if (transaction.type === "income"){
+                    this.totalizadorDoMes.saldo += transaction.value
+                }
+                if (transaction.type === "expense") {
+                    this.totalizadorDoMes.saldo -= transaction.value
+                }
+           }
+        }
     }    
 
- 
-
     const january = new Month("January", 0);
-    january.addTransaction(new Transaction("Salary", "income", 3000));
-    console.log(january);
-
-
-
-
+    // january.addTransaction(new Transaction("Salary", "income", 3000));
+    // january.addTransaction(new Transaction("rente", "expense", 1000));
+    // january.calcularSaldo();
+    // console.log(january);
 
     function arredondar(valor) {
-        return Math.round(valor*100)/100
+        return Math.round(valor*100)/100;
     }
 
     function calcularJuros(valor) {
         const juros = arredondar(valor * 0.1)
-        console.log(juros)
         return juros
     }
 
@@ -87,14 +93,13 @@
         
         totalizadorDoMes.distribuicaoDeDespesas = distributeExpense(transactions, totalizadorDoMes.despesas)
 
-        
         const estaNegativo1 =  totalizadorDoMes.saldo < 0
         if (estaNegativo1) {
             totalizadorDoMes.juros = calcularJuros( totalizadorDoMes.saldo);
-            totalizadorDoMes.saldo += arredondar(totalizadorDoMes.saldo + totalizadorDoMes.juros)
+            totalizadorDoMes.saldo = arredondar(totalizadorDoMes.saldo + totalizadorDoMes.juros)
         } else {
             totalizadorDoMes.rendimentos = calcularRendimentos( totalizadorDoMes.saldo);
-            totalizadorDoMes.saldo += arredondar(totalizadorDoMes.saldo + totalizadorDoMes.rendimentos)
+            totalizadorDoMes.saldo = arredondar(totalizadorDoMes.saldo + totalizadorDoMes.rendimentos);
         }
         return totalizadorDoMes;
     }
@@ -105,10 +110,12 @@
         new Transaction("Rent", "expense", 1000), 
         new Transaction("Energy Bill", "expense", 200), 
         new Transaction("Water Bill", "expense", 100), 
-        new Transaction("Internet", "expense", 300), 
+        new Transaction("Internet", "expense", 100), 
         new Transaction("Transport", "expense", 300), 
+        new Transaction("Hobby", "expense", 300), 
         new Transaction("Food", "expense", 500),
-        new Transaction("Condo", "expense", 400),
+        new Transaction("Condo", "expense", 300),
+        new Transaction("Farmacy", "expense", 100)
     ]  
     
     const totalizadorDoMes1 = calcularSaldo("janeiro", saldoInicial, januaryExpenses)
@@ -120,11 +127,9 @@
         new Transaction("Energy Bill", "expense", 250), 
         new Transaction("Water Bill", "expense", 100), 
         new Transaction("Internet", "expense", 100), 
-        new Transaction("Transport", "expense", 100), 
-        new Transaction("Hobby", "expense", 100), 
-        new Transaction("Food", "expense", 500), 
-        new Transaction("Condo", "expense", 400),
-        new Transaction("Farmacy", "expense", 100)
+        new Transaction("Transport", "expense", 500), 
+        new Transaction("Food", "expense", 1000), 
+        new Transaction("Condo", "expense", 400)
     ]
   
     const totalizadorDoMes2 = calcularSaldo("fevereiro", totalizadorDoMes1.saldo, februaryExpenses)
@@ -137,16 +142,22 @@
        new Transaction("Water Bill", "expense", 100), 
        new Transaction("Internet", "expense",  200), 
        new Transaction("Transport", "expense",  500), 
-       new Transaction("Hobby", "expense",  800),
+       new Transaction("Hobby", "expense",  800), 
        new Transaction("Food", "expense",  1000),
        new Transaction("Condo", "expense",  400)
     ]
     
-    const saldo3 = calcularSaldo("marco", totalizadorDoMes2.saldo, marchExpenses)
-    console.log(saldo3)
-    acumuladoAno = saldo3
+    const totalizadorDoMes3 = calcularSaldo("marco", totalizadorDoMes2.saldo, marchExpenses)
+    console.log(totalizadorDoMes3)
+    acumuladoAno = totalizadorDoMes3
     console.log("ano")
     console.log(acumuladoAno.saldo)
+
+    console.log(totalizadorDoMes1.saldo === 100.5)
+    console.log(totalizadorDoMes2.saldo === -494.45)
+    console.log(totalizadorDoMes3.saldo === -983.89)
+
+
 
 
 </script>
