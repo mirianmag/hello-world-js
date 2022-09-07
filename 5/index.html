@@ -33,6 +33,16 @@
             this.transactions.push(transaction);
         }
 
+        calcularJuros(valor) {
+        const juros = arredondar(valor * 0.1)
+        return juros
+        }
+
+        calcularRendimentos(valor) {
+            const rendimentos = arredondar(valor * 0.005)
+            return rendimentos
+        }
+
         calcularSaldo() {
             this.totalizadorDoMes.saldo = this.initialBalance ;
             for(const transaction of this.transactions){
@@ -50,10 +60,10 @@
 
             const estaNegativo1 =  this.totalizadorDoMes.saldo < 0
             if (estaNegativo1) {
-                this.totalizadorDoMes.juros = calcularJuros( this.totalizadorDoMes.saldo);
+                this.totalizadorDoMes.juros = this.calcularJuros( this.totalizadorDoMes.saldo);
                 this.totalizadorDoMes.saldo = arredondar(this.totalizadorDoMes.saldo + this.totalizadorDoMes.juros)
             } else {
-                this.totalizadorDoMes.rendimentos = calcularRendimentos( this.totalizadorDoMes.saldo);
+                this.totalizadorDoMes.rendimentos = this.calcularRendimentos( this.totalizadorDoMes.saldo);
                 this.totalizadorDoMes.saldo = arredondar(this.totalizadorDoMes.saldo + this.totalizadorDoMes.rendimentos);
             }
         }
@@ -66,15 +76,7 @@
         return Math.round(valor*100)/100;
     }
 
-    function calcularJuros(valor) {
-        const juros = arredondar(valor * 0.1)
-        return juros
-    }
 
-    function calcularRendimentos(valor) {
-        const rendimentos = arredondar(valor * 0.005)
-        return rendimentos
-    }
 
     function distributeExpense(transactions, total) {
         const distribuicaoDeDespesas = []
@@ -116,28 +118,26 @@
     fevereiro.calcularSaldo();
     console.log(fevereiro);
 
-   
-    // const marchExpenses = [
-    //    new Transaction("Salary", "income", 4000), 
-    //    new Transaction("Rent", "expense", 1200), 
-    //    new Transaction("Energy Bill", "expense",  200), 
-    //    new Transaction("Water Bill", "expense", 100), 
-    //    new Transaction("Internet", "expense",  200), 
-    //    new Transaction("Transport", "expense",  500), 
-    //    new Transaction("Hobby", "expense",  800), 
-    //    new Transaction("Food", "expense",  1000),
-    //    new Transaction("Condo", "expense",  400)
-    // ]
+    const marco = new Month("March", fevereiro.totalizadorDoMes.saldo)
+    marco.addTransaction(new Transaction("Salary", "income", 4000)); 
+    marco.addTransaction(new Transaction("Rent", "expense", 1200)); 
+    marco.addTransaction(new Transaction("Energy Bill", "expense", 200)); 
+    marco.addTransaction(new Transaction("Water Bill", "expense", 100)); 
+    marco.addTransaction(new Transaction("Internet", "expense", 200)); 
+    marco.addTransaction(new Transaction("Transport", "expense", 500)); 
+    marco.addTransaction(new Transaction("Hobby", "expense", 800)); 
+    marco.addTransaction(new Transaction("Food", "expense", 1000));
+    marco.addTransaction(new Transaction("Condo", "expense", 400));
+    marco.calcularSaldo();
+    console.log(marco);
     
-    // const totalizadorDoMes3 = calcularSaldo("marco", totalizadorDoMes2.saldo, marchExpenses)
-    // console.log(totalizadorDoMes3)
     // acumuladoAno = totalizadorDoMes3
     // console.log("ano")
     // console.log(acumuladoAno.saldo)
 
     console.log(janeiro.totalizadorDoMes.saldo === 100.5)
     console.log(fevereiro.totalizadorDoMes.saldo === -494.45)
-    // console.log(totalizadorDoMes3.saldo === -983.89)
+    console.log(marco.totalizadorDoMes.saldo === -983.89)
 
 
 
