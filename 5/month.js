@@ -33,6 +33,13 @@ class Month {
         return distribuicaoDeDespesas
     }
 
+    apurarJuros () {
+        if (this.totalizadorDoMes.saldo < 0) {
+            this.totalizadorDoMes.juros = this.calcularJuros( this.totalizadorDoMes.saldo);
+            this.totalizadorDoMes.saldo = arredondar(this.totalizadorDoMes.saldo + this.totalizadorDoMes.juros)
+        } 
+    }
+
     calcularSaldo() {
         this.totalizadorDoMes.saldo = this.initialBalance ;
         for(const transaction of this.transactions){
@@ -47,12 +54,13 @@ class Month {
         }
         
         this.totalizadorDoMes.distribuicaoDeDespesas = this.distributeExpense();
+        this.apurarJuros();
+        
+        this.apurarJuros();
 
-        const estaNegativo1 =  this.totalizadorDoMes.saldo < 0
-        if (estaNegativo1) {
-            this.totalizadorDoMes.juros = this.calcularJuros( this.totalizadorDoMes.saldo);
-            this.totalizadorDoMes.saldo = arredondar(this.totalizadorDoMes.saldo + this.totalizadorDoMes.juros)
-        } else {
+
+        //calcular rendimentos
+        if (this.totalizadorDoMes.saldo > 0) {
             this.totalizadorDoMes.rendimentos = this.calcularRendimentos( this.totalizadorDoMes.saldo);
             this.totalizadorDoMes.saldo = arredondar(this.totalizadorDoMes.saldo + this.totalizadorDoMes.rendimentos);
         }

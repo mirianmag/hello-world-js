@@ -1,5 +1,4 @@
 const saldoInicial = 0;
-const january = new Month("January", 0);
 
 const janeiro = new Month("Janeiro", saldoInicial);
 janeiro.addTransaction(new Transaction("Salary", "income", 3000));
