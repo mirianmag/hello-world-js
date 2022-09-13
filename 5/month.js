@@ -30,7 +30,7 @@ class Month {
                 distribuicaoDeDespesas.push({category: transaction.category, percentual: percentual})
             }        
         }
-        return distribuicaoDeDespesas
+        this.totalizadorDoMes.distribuicaoDeDespesas =  distribuicaoDeDespesas
     }
 
     apurarJuros () {
@@ -40,29 +40,37 @@ class Month {
         } 
     }
 
+    apurarRendimentos () {
+        if (this.totalizadorDoMes.saldo > 0) {
+            this.totalizadorDoMes.rendimentos = this.calcularRendimentos( this.totalizadorDoMes.saldo);
+            this.totalizadorDoMes.saldo = arredondar(this.totalizadorDoMes.saldo + this.totalizadorDoMes.rendimentos);
+        }
+    }
+
     calcularSaldo() {
         this.totalizadorDoMes.saldo = this.initialBalance ;
+        this.gitapurarIncome();
+
         for(const transaction of this.transactions){
-            if(transaction.type === "income"){
-                this.totalizadorDoMes.saldo += transaction.value
-                this.totalizadorDoMes.receitas += transaction.value
-            } 
             if(transaction.type === "expense") {
                 this.totalizadorDoMes.saldo -= transaction.value
                 this.totalizadorDoMes.despesas += transaction.value
             }
         }
         
-        this.totalizadorDoMes.distribuicaoDeDespesas = this.distributeExpense();
+        this.distributeExpense();
         this.apurarJuros();
+        this.apurarRendimentos();
         
-        this.apurarJuros();
+    }
 
-
-        //calcular rendimentos
-        if (this.totalizadorDoMes.saldo > 0) {
-            this.totalizadorDoMes.rendimentos = this.calcularRendimentos( this.totalizadorDoMes.saldo);
-            this.totalizadorDoMes.saldo = arredondar(this.totalizadorDoMes.saldo + this.totalizadorDoMes.rendimentos);
+    apurarIncome () {
+        for(const transaction of this.transactions){
+            if(transaction.type === "income"){
+                this.totalizadorDoMes.saldo += transaction.value
+                this.totalizadorDoMes.receitas += transaction.value
+            } 
+            
         }
     }
 
