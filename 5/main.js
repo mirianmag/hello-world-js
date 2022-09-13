@@ -14,7 +14,7 @@ janeiro.addTransaction(new Transaction("Farmacy", "expense", 100));
 janeiro.calcularSaldo();
 console.log(janeiro);
 
-const fevereiro = new Month("Fevereiro", janeiro.totalizadorDoMes.saldo);
+const fevereiro = new Month("Fevereiro", janeiro.totalizador.saldo);
 fevereiro.addTransaction(new Transaction("Salary", "income", 3000));
 fevereiro.addTransaction(new Transaction("Rent", "expense", 1200));
 fevereiro.addTransaction(new Transaction("Energy Bill", "expense", 250)); 
@@ -26,7 +26,7 @@ fevereiro.addTransaction(new Transaction("Condo", "expense", 400));
 fevereiro.calcularSaldo();
 console.log(fevereiro);
 
-const marco = new Month("March", fevereiro.totalizadorDoMes.saldo)
+const marco = new Month("March", fevereiro.totalizador.saldo)
 marco.addTransaction(new Transaction("Salary", "income", 4000)); 
 marco.addTransaction(new Transaction("Rent", "expense", 1200)); 
 marco.addTransaction(new Transaction("Energy Bill", "expense", 200)); 
