@@ -1,9 +1,9 @@
 class Month {
 
-    constructor(name, initialBalance) {
+    constructor(name) {
         if (name === "") throw new Error("Invalid Month: Name is required")
         this.name = name;
-        this.initialBalance = initialBalance;
+        this.initialBalance = 0;
         this.totalizador = {saldo: 0, juros: 0, rendimentos: 0, receitas:0, despesas: 0, distribuicaoDeDespesas: [] }
         this.transactions = [];
     }
