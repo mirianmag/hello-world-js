@@ -48,26 +48,25 @@ year.calculateBalance();
 
 console.log(year.months);
 
+function addElement (parent, elementType, text) {
+    const element = document.createElement(elementType);
+    if (text) {
+        element.innerText = text;
+    }
+    parent.appendChild(element);
+}
+
 function render () {
     const app = document.getElementById("app");
-
     for (const month of year.months) {
-        const monthName = document.createElement("h3");
-        monthName.innerText = month.name;
-        app.appendChild(monthName);
-
+        addElement(app, "h3", month.name)
+        
         for (const transaction of month.transactions) {
-            const transactionInformation = document.createElement("p");
-            transactionInformation.innerText = transaction.type + " " + transaction.category + " " + transaction.value;
-            app.appendChild(transactionInformation);
+            const transactionInformation = transaction.type + " " + transaction.category + " " + transaction.value;
+            addElement(app, "p", transactionInformation);
         }
-
-        const balance = document.createElement("h4");
-        balance.innerText = month.totalizador.saldo;
-        app.appendChild(balance);
-
-        app.appendChild(document.createElement("hr"));
-
+        addElement(app, "h4",  month.totalizador.saldo);
+        addElement(app, "hr");
     }
 }
 
