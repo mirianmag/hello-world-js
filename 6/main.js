@@ -41,10 +41,10 @@ year.addMonth(marco);
 year.calculateBalance();
 
 
-janeiro.addTransaction(new Transaction("School", "expense", 500));
-fevereiro.addTransaction(new Transaction("School", "expense", 400));
-marco.addTransaction(new Transaction("School", "expense", 500));
-year.calculateBalance()
+// janeiro.addTransaction(new Transaction("School", "expense", 500));
+// fevereiro.addTransaction(new Transaction("School", "expense", 400));
+// marco.addTransaction(new Transaction("School", "expense", 500));
+// year.calculateBalance()
 
 console.log(year.months);
 
@@ -55,6 +55,19 @@ function render () {
         const monthName = document.createElement("h3");
         monthName.innerText = month.name;
         app.appendChild(monthName);
+
+        for (const transaction of month.transactions) {
+            const transactionInformation = document.createElement("p");
+            transactionInformation.innerText = transaction.type + " " + transaction.category + " " + transaction.value;
+            app.appendChild(transactionInformation);
+        }
+
+        const balance = document.createElement("h4");
+        balance.innerText = month.totalizador.saldo;
+        app.appendChild(balance);
+
+        app.appendChild(document.createElement("hr"));
+
     }
 }
 
