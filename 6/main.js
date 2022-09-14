@@ -40,17 +40,11 @@ year.addMonth(marco);
 
 year.calculateBalance();
 
-
-// janeiro.addTransaction(new Transaction("School", "expense", 500));
-// fevereiro.addTransaction(new Transaction("School", "expense", 400));
-// marco.addTransaction(new Transaction("School", "expense", 500));
-// year.calculateBalance()
-
 console.log(year.months);
 
 function addElement (parent, elementType, text) {
     const element = document.createElement(elementType);
-    if (text) {
+    if (text !== "" && text !== undefined && text !== null) {
         element.innerText = text;
     }
     parent.appendChild(element);
@@ -58,16 +52,28 @@ function addElement (parent, elementType, text) {
 
 function render () {
     const app = document.getElementById("app");
+    if(app.firstChild) {
+        app.firstChild.remove();
+    }
+    const panel = document.createElement("div");
     for (const month of year.months) {
-        addElement(app, "h3", month.name)
-        
+        addElement(panel, "h3", month.name)
         for (const transaction of month.transactions) {
             const transactionInformation = transaction.type + " " + transaction.category + " " + transaction.value;
-            addElement(app, "p", transactionInformation);
+            addElement(panel, "p", transactionInformation);
         }
-        addElement(app, "h4",  month.totalizador.saldo);
-        addElement(app, "hr");
+        addElement(panel, "h4",  month.totalizador.saldo);
+        addElement(panel, "hr");
     }
+    app.appendChild(panel);
 }
 
 render();
+
+function addTransaction() {
+    janeiro.addTransaction(new Transaction("Cinema", "expense", 100));
+    year.calculateBalance();
+    render();
+}
+const button = document.getElementById("button");
+button.addEventListener("click", addTransaction);

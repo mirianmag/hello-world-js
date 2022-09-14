@@ -12,7 +12,7 @@ class Year{
         for(const month of this.months) {
            month.initialBalance = initialBalance;
            month.calcularSaldo();
-           initialBalance = month.totalizador.saldo
+           initialBalance = month.totalizador.saldo;
         }
     }
 }
