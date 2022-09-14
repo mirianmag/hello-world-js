@@ -7,6 +7,15 @@ class Year{
         this.months.push(month);
     }
 
+    addTransaction(monthName, transaction) {
+        for(const month of this.months){
+            if(month.name == monthName) {
+                month.addTransaction(transaction);
+                break;
+            }
+        }
+    }
+
     calculateBalance () {
         let initialBalance = 0;
         for(const month of this.months) {

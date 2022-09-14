@@ -71,9 +71,17 @@ function render () {
 render();
 
 function addTransaction() {
-    janeiro.addTransaction(new Transaction("Cinema", "expense", 100));
+    const month = document.getElementById("month");
+    const category = document.getElementById("category");
+    const type = document.getElementById("type");
+    const amount = document.getElementById("amount");
+    year.addTransaction(month.value, new Transaction(category.value, type.value, parseFloat(amount.value)));
     year.calculateBalance();
     render();
+    month.value = "";
+    category.value = "";
+    type.value = "";
+    amount.value = "";
 }
 const button = document.getElementById("button");
 button.addEventListener("click", addTransaction);
