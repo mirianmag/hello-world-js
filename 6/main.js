@@ -46,6 +46,4 @@ fevereiro.addTransaction(new Transaction("School", "expense", 400));
 marco.addTransaction(new Transaction("School", "expense", 500));
 year.calculateBalance()
 
-console.log(janeiro);
-console.log(fevereiro);
-console.log(marco);
+console.log(year.months);
