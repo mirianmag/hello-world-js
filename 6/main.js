@@ -1,5 +1,5 @@
 
-const janeiro = new Month("Janeiro",);
+const janeiro = new Month("January",);
 janeiro.addTransaction(new Transaction("Salary", "income", 3000));
 janeiro.addTransaction(new Transaction("Rent", "expense", 1000)); 
 janeiro.addTransaction(new Transaction("Energy Bill", "expense", 200)); 
@@ -12,7 +12,7 @@ janeiro.addTransaction(new Transaction("Condo", "expense", 300));
 janeiro.addTransaction(new Transaction("Farmacy", "expense", 100));
 
 
-const fevereiro = new Month("Fevereiro");
+const fevereiro = new Month("February");
 fevereiro.addTransaction(new Transaction("Salary", "income", 3000));
 fevereiro.addTransaction(new Transaction("Rent", "expense", 1200));
 fevereiro.addTransaction(new Transaction("Energy Bill", "expense", 250)); 
@@ -47,3 +47,15 @@ marco.addTransaction(new Transaction("School", "expense", 500));
 year.calculateBalance()
 
 console.log(year.months);
+
+function render () {
+    const app = document.getElementById("app");
+
+    for (const month of year.months) {
+        const monthName = document.createElement("h3");
+        monthName.innerText = month.name;
+        app.appendChild(monthName);
+    }
+}
+
+render();
