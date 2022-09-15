@@ -78,8 +78,8 @@ function addTransaction() {
     year.addTransaction(month.value, new Transaction(category.value, type.value, parseFloat(amount.value)));
     year.calculateBalance();
     render();
-    month.value = "";
-    category.value = "";
+    month.value = year.months[0].name;
+    category.value = "income";
     type.value = "";
     amount.value = "";
 }
