@@ -85,3 +85,11 @@ function addTransaction() {
 }
 const button = document.getElementById("button");
 button.addEventListener("click", addTransaction);
+
+const monthSelect= document.getElementById("month");
+for (const month of year.months) {
+    const option = document.createElement("option");
+    option.text = month.name;
+    monthSelect.add(option);
+}
+
