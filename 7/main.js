@@ -57,10 +57,13 @@ function render () {
     }
     const panel = document.createElement("div");
     for (const month of year.months) {
-        addElement(panel, "h3", month.name)
+        addElement(panel, "h3", month.name);
+        const tableTransaction = document.createElement("table");
         for (const transaction of month.transactions) {
-            const transactionInformation = transaction.type + " " + transaction.category + " " + transaction.value;
-            addElement(panel, "p", transactionInformation);
+            const lineTransaction = document.createElement("tr");
+            addElement(lineTransaction, "td", transaction.type);
+            addElement(lineTransaction, "td", transaction.category);
+            addElement(lineTransaction, "td", transaction.value);
         }
         addElement(panel, "h4",  month.totalizador.saldo);
         addElement(panel, "hr");
