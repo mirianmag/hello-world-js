@@ -64,7 +64,9 @@ function render () {
             addElement(lineTransaction, "td", transaction.type);
             addElement(lineTransaction, "td", transaction.category);
             addElement(lineTransaction, "td", transaction.value);
+            tableTransaction.appendChild(lineTransaction);
         }
+        panel.appendChild(tableTransaction);
         addElement(panel, "h4",  month.totalizador.saldo);
         addElement(panel, "hr");
     }
