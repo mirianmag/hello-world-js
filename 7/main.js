@@ -57,18 +57,27 @@ function render () {
     }
     const panel = document.createElement("div");
     for (const month of year.months) {
-        addElement(panel, "h3", month.name);
+        addElement(panel, "h4", month.name);
         const tableTransaction = document.createElement("table");
         for (const transaction of month.transactions) {
             const lineTransaction = document.createElement("tr");
-            addElement(lineTransaction, "td", transaction.type);
             addElement(lineTransaction, "td", transaction.category);
             addElement(lineTransaction, "td", transaction.value);
             tableTransaction.appendChild(lineTransaction);
         }
+        const lineTax = document.createElement("tr");
+        addElement(lineTax, "td", "Tax");
+        addElement(lineTax, "td", month.totalizador.juros);
+        tableTransaction.appendChild(lineTax);
+        const lineReturn = document.createElement("tr");
+        addElement(lineReturn, "td", "Return");
+        addElement(lineReturn, "td", month.totalizador.rendimentos);
+        tableTransaction.appendChild(lineReturn);
+        const lineAmount = document.createElement("tr");
+        addElement(lineAmount, "td", "Amount");
+        addElement(lineAmount, "td", month.totalizador.saldo);
+        tableTransaction.appendChild(lineAmount);
         panel.appendChild(tableTransaction);
-        addElement(panel, "h4",  month.totalizador.saldo);
-        addElement(panel, "hr");
     }
     app.appendChild(panel);
 }
