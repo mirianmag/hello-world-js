@@ -57,6 +57,23 @@
                 text-align: left;
                 width: 50%;
             }
+            .grafic {
+                width: 600px;
+                height: 200px;
+                border: 1px solid #000;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-around;
+                align-items: flex-end;
+            }
+            .grafic-column-color {
+                height: 120px;
+                width: 150px;
+                background-color: red;
+            }
+            .grafic-column-text {
+                text-align: center;
+            }
         </style>
     </head>
     <body>
@@ -73,7 +90,29 @@
             <br/><br/>
             <button id="button">Add transaction</button>
         </div>
-        
+
+        <div class="grafic">
+            <div class="grafic-column">
+                <div class="grafic-column-color"></div>
+                <div class="grafic-column-text">
+                    January
+                </div>
+            </div>
+            <div class="grafic-column">
+                <div class="grafic-column-color"></div>
+                <div class="grafic-column-text">
+                    February
+                </div>
+            </div>
+            <div class="grafic-column">
+                <div class="grafic-column-color"></div>
+                <div class="grafic-column-text">
+                    March
+                </div>
+            </div>
+            
+        </div>
+
         <div id="app"></div>
         <script src="transaction.js"></script>
         <script src="month.js"></script>
