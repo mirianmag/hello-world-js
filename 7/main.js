@@ -55,7 +55,19 @@ function render () {
     if(app.firstChild) {
         app.firstChild.remove();
     }
+
     const panel = document.createElement("div");
+
+    const grafic = document.createElement("div");
+    grafic.className = "grafic";
+    panel.appendChild(grafic);
+    for (const month of year.months) {
+        const column = document.createElement("div");
+        column.className = "grafic-column";
+        column.innerText = month.name;
+        grafic.appendChild(column);
+    }
+
     for (const month of year.months) {
         addElement(panel, "h4", month.name);
         const tableTransaction = document.createElement("table");
