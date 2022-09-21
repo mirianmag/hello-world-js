@@ -57,14 +57,22 @@ function render () {
     }
 
     const panel = document.createElement("div");
-
+    const colors = ["red", "yellow", "green", "blue"];
     const grafic = document.createElement("div");
     grafic.className = "grafic";
     panel.appendChild(grafic);
     for (const month of year.months) {
         const column = document.createElement("div");
         column.className = "grafic-column";
-        column.innerText = month.name;
+        const color = document.createElement("div");
+        color.style.height = (month.totalizador.saldo*100)/10000;
+        color.style.background = colors.pop();
+        column.appendChild(color);
+        const monthName = document.createElement("div");
+        monthName.className = "grafic-column-text";
+        monthName.innerText = month.name;
+        column.appendChild(color);
+        column.appendChild(monthName);
         grafic.appendChild(column);
     }
 
