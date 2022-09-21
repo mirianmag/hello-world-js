@@ -59,23 +59,28 @@ function render () {
     for (const month of year.months) {
         addElement(panel, "h4", month.name);
         const tableTransaction = document.createElement("table");
+        tableTransaction.className = "table-transactions";
+        const lineTitle = document.createElement("tr");
+        addElement(lineTitle, "th", "Category");
+        addElement(lineTitle, "th", "Value");
+        tableTransaction.appendChild(lineTitle);
         for (const transaction of month.transactions) {
             const lineTransaction = document.createElement("tr");
             addElement(lineTransaction, "td", transaction.category);
-            addElement(lineTransaction, "td", transaction.value);
+            addElement(lineTransaction, "td", formatMoney(transaction.value));
             tableTransaction.appendChild(lineTransaction);
         }
         const lineTax = document.createElement("tr");
-        addElement(lineTax, "td", "Tax");
-        addElement(lineTax, "td", month.totalizador.juros);
+        addElement(lineTax, "th", "Tax");
+        addElement(lineTax, "th", formatMoney(month.totalizador.juros));
         tableTransaction.appendChild(lineTax);
         const lineReturn = document.createElement("tr");
-        addElement(lineReturn, "td", "Return");
-        addElement(lineReturn, "td", month.totalizador.rendimentos);
+        addElement(lineReturn, "th", "Return");
+        addElement(lineReturn, "th", formatMoney(month.totalizador.rendimentos));
         tableTransaction.appendChild(lineReturn);
         const lineAmount = document.createElement("tr");
-        addElement(lineAmount, "td", "Amount");
-        addElement(lineAmount, "td", month.totalizador.saldo);
+        addElement(lineAmount, "th", "Amount");
+        addElement(lineAmount, "th", formatMoney(month.totalizador.saldo));
         tableTransaction.appendChild(lineAmount);
         panel.appendChild(tableTransaction);
     }
