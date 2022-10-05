@@ -50,25 +50,11 @@ function render () {
     }
 
     const panel = document.createElement("div");
-
-    const colors = ["red", "yellow", "green", "blue"];
-    const grafic = document.createElement("div");
-    grafic.className = "grafic";
-    panel.appendChild(grafic);
+    const grafic = new Grafic();
     for (const month of year.months) {
-        const column = document.createElement("div");
-        column.className = "grafic-column";
-        const color = document.createElement("div");
-        color.style.height = (month.totalizador.saldo*100)/10000;
-        color.style.background = colors.pop();
-        column.appendChild(color);
-        const monthName = document.createElement("div");
-        monthName.className = "grafic-column-text";
-        monthName.innerText = month.name;
-        column.appendChild(color);
-        column.appendChild(monthName);
-        grafic.appendChild(column);
+        grafic.addColumn(month.totalizador.saldo, month.name);
     }
+    panel.appendChild(grafic.element);
 
     for (const month of year.months) {
         addElement(panel, "h4", month.name);
