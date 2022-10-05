@@ -16,6 +16,6 @@ class Transaction {
     }
 
     getValueString () {
-       return (this.type == "expense") ? this.value * -1 : this.value
+       return (this.type === "expense") ? this.value * -1 : this.value
     }
 }

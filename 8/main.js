@@ -50,6 +50,7 @@ function render () {
     }
 
     const panel = document.createElement("div");
+
     const colors = ["red", "yellow", "green", "blue"];
     const grafic = document.createElement("div");
     grafic.className = "grafic";
@@ -71,31 +72,16 @@ function render () {
 
     for (const month of year.months) {
         addElement(panel, "h4", month.name);
-        const tableTransaction = document.createElement("table");
-        tableTransaction.className = "table-transactions";
-        const lineTitle = document.createElement("tr");
-        addElement(lineTitle, "th", "Category");
-        addElement(lineTitle, "th", "Value");
-        tableTransaction.appendChild(lineTitle);
+        const tableTransaction = new Table("table-transactions");
+        tableTransaction.addRow("th", ["Category", "Value"]);
         for (const transaction of month.transactions) {
-            const lineTransaction = document.createElement("tr");
-            addElement(lineTransaction, "td", transaction.category);
-            addElement(lineTransaction, "td", formatMoney(transaction.getValueString()));
-            tableTransaction.appendChild(lineTransaction);
+            tableTransaction.addRow("td", [transaction.category, formatMoney(transaction.getValueString())]);
         }
-        const lineTax = document.createElement("tr");
-        addElement(lineTax, "th", "Tax");
-        addElement(lineTax, "th", formatMoney(month.totalizador.juros));
-        tableTransaction.appendChild(lineTax);
-        const lineReturn = document.createElement("tr");
-        addElement(lineReturn, "th", "Return");
-        addElement(lineReturn, "th", formatMoney(month.totalizador.rendimentos));
-        tableTransaction.appendChild(lineReturn);
-        const lineAmount = document.createElement("tr");
-        addElement(lineAmount, "th", "Amount");
-        addElement(lineAmount, "th", formatMoney(month.totalizador.saldo));
-        tableTransaction.appendChild(lineAmount);
-        panel.appendChild(tableTransaction);
+        tableTransaction.addRow("th", ["Tax", formatMoney(month.totalizador.juros)]);
+        tableTransaction.addRow("th", ["Return", formatMoney(month.totalizador.rendimentos)]);
+        tableTransaction.addRow("th", ["Amount", formatMoney(month.totalizador.saldo)]);
+
+        panel.appendChild(tableTransaction.element);
     }
     app.appendChild(panel);
 }
