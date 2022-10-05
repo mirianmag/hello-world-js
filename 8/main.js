@@ -4,13 +4,6 @@ janeiro.addTransaction(new Transaction("Salary", "income", 3000));
 janeiro.addTransaction(new Transaction("Rent", "expense", 1000)); 
 janeiro.addTransaction(new Transaction("Energy Bill", "expense", 200)); 
 janeiro.addTransaction(new Transaction("Water Bill", "expense", 100)); 
-// janeiro.addTransaction(new Transaction("Internet", "expense", 100)); 
-// janeiro.addTransaction(new Transaction("Transport", "expense", 300)); 
-// janeiro.addTransaction(new Transaction("Hobby", "expense", 300)); 
-// janeiro.addTransaction(new Transaction("Food", "expense", 500));
-// janeiro.addTransaction(new Transaction("Condo", "expense", 300));
-// janeiro.addTransaction(new Transaction("Farmacy", "expense", 100));
-
 
 const fevereiro = new Month("February");
 fevereiro.addTransaction(new Transaction("Salary", "income", 3000));
