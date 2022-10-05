@@ -80,7 +80,7 @@ function render () {
         for (const transaction of month.transactions) {
             const lineTransaction = document.createElement("tr");
             addElement(lineTransaction, "td", transaction.category);
-            addElement(lineTransaction, "td", formatMoney(transaction.value));
+            addElement(lineTransaction, "td", formatMoney(transaction.getValueString()));
             tableTransaction.appendChild(lineTransaction);
         }
         const lineTax = document.createElement("tr");

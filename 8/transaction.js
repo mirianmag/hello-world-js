@@ -10,8 +10,12 @@ class Transaction {
         if (category === "") {
             throw new Error("Invalid Transaction: Category is required")
         }
-        this.category = category
-        this.type = type
-        this.value = value
+        this.category = category;
+        this.type = type;
+        this.value = value;
+    }
+
+    getValueString () {
+       return (this.type == "expense") ? this.value * -1 : this.value
     }
 }
