@@ -27,34 +27,6 @@ year.addMonth(marco);
 
 year.calculateBalance();
 
-console.log(year.months);
-
-function addElement (parent, elementType, text) {
-    const element = document.createElement(elementType);
-    if (text !== "" && text !== undefined && text !== null) {
-        element.innerText = text;
-    }
-    parent.appendChild(element);
-}
-
-class h4 {
-    constructor (text) {
-        this.element = document.createElement("h4");
-        this.element.innerText = text;
-    }
-}
-
-class div {
-    constructor (id, className) {
-        this.element = document.createElement("div");
-        this.element.id = id;
-        this.element.className = className;
-    }
-    addChildElement (child) {
-        this.element.appendChild(child)
-    }
-}
-
 function render () {
     const app = document.getElementById("app");
     if(app.firstChild) {

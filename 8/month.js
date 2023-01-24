@@ -65,7 +65,6 @@ class Month {
             this.totalizador.saldo = arredondar(this.totalizador.saldo + this.totalizador.rendimentos);
         }
     }
-
     
     calcularJuros(valor) {
         const juros = arredondar(valor * 0.1)
