@@ -37,21 +37,41 @@ function addElement (parent, elementType, text) {
     parent.appendChild(element);
 }
 
+class h4 {
+    constructor (text) {
+        this.element = document.createElement("h4");
+        this.element.innerText = text;
+    }
+}
+
+class div {
+    constructor (id, className) {
+        this.element = document.createElement("div");
+        this.element.id = id;
+        this.element.className = className;
+    }
+    addChildElement (child) {
+        this.element.appendChild(child)
+    }
+}
+
 function render () {
     const app = document.getElementById("app");
     if(app.firstChild) {
         app.firstChild.remove();
     }
 
-    const panel = document.createElement("div");
+    const panel = new div();
     const grafic = new Grafic();
     for (const month of year.months) {
         grafic.addColumn(month.totalizador.saldo, month.name);
     }
-    panel.appendChild(grafic.element);
+    panel.addChildElement(grafic.element);
 
     for (const month of year.months) {
-        addElement(panel, "h4", month.name);
+        const monthName = new h4(month.name);
+        panel.addChildElement(monthName.element);
+
         const tableTransaction = new Table("table-transactions");
         tableTransaction.addRow("th", ["Category", "Value"]);
         for (const transaction of month.transactions) {
@@ -61,9 +81,9 @@ function render () {
         tableTransaction.addRow("th", ["Return", formatMoney(month.totalizador.rendimentos)]);
         tableTransaction.addRow("th", ["Amount", formatMoney(month.totalizador.saldo)]);
 
-        panel.appendChild(tableTransaction.element);
+        panel.addChildElement(tableTransaction.element);
     }
-    app.appendChild(panel);
+    app.appendChild(panel.element);
 }
 
 render();
@@ -77,8 +97,8 @@ function addTransaction() {
     year.calculateBalance();
     render();
     month.value = year.months[0].name;
-    category.value = "income";
-    type.value = "";
+    type.value = "income";
+    category.value = "";
     amount.value = "";
 }
 const button = document.getElementById("button");
