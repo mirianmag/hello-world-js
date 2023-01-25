@@ -27,16 +27,18 @@ year.addMonth(marco);
 
 year.calculateBalance();
 
-class Select {
-    constructor (id) {
-        this.element = document.createElement("select");
-        this.element.id = id;
-    }
-    addOption (text) {
-        const option = document.createElement("option");
-        option.text = text;
-        this.element.appendChild(option);
-    }
+function addTransaction() {
+    const month = document.getElementById("month");
+    const category = document.getElementById("category");
+    const type = document.getElementById("type");
+    const amount = document.getElementById("amount");
+    year.addTransaction(month.value, new Transaction(category.value, type.value, parseFloat(amount.value)));
+    year.calculateBalance();
+    render();
+    month.value = year.months[0].name;
+    type.value = "income";
+    category.value = "";
+    amount.value = "";
 }
 
 function render () {
@@ -56,10 +58,17 @@ function render () {
     const typeSelect = new Select("type");
     typeSelect.addOption("income")
     typeSelect.addOption("expense")
-    // const categoryInputText = new Input();
-    // const valueInputNumber = new Input();
+    const categoryInputText = new Input("category", "text", "Category");
+    const valueInputNumber = new Input("amount", "number", "Value");
+    const addButton = new Button("button", "Add");
+    addButton.addListener(() => {
+       addTransaction(); 
+     });
     form.addChildElement(monthSelect.element);
     form.addChildElement(typeSelect.element);
+    form.addChildElement(categoryInputText.element);
+    form.addChildElement(valueInputNumber.element);
+    form.addChildElement(addButton.element);
     panel.addChildElement(form.element);
     
 
@@ -89,27 +98,3 @@ function render () {
 }
 
 render();
-
-function addTransaction() {
-    const month = document.getElementById("month");
-    const category = document.getElementById("category");
-    const type = document.getElementById("type");
-    const amount = document.getElementById("amount");
-    year.addTransaction(month.value, new Transaction(category.value, type.value, parseFloat(amount.value)));
-    year.calculateBalance();
-    render();
-    month.value = year.months[0].name;
-    type.value = "income";
-    category.value = "";
-    amount.value = "";
-}
-const button = document.getElementById("button");
-button.addEventListener("click", addTransaction);
-
-const monthSelect= document.getElementById("month");
-for (const month of year.months) {
-    const option = document.createElement("option");
-    option.text = month.name;
-    monthSelect.add(option);
-}
-
