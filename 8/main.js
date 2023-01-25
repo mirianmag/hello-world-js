@@ -27,6 +27,18 @@ year.addMonth(marco);
 
 year.calculateBalance();
 
+class Select {
+    constructor (id) {
+        this.element = document.createElement("select");
+        this.element.id = id;
+    }
+    addOption (text) {
+        const option = document.createElement("option");
+        option.text = text;
+        this.element.appendChild(option);
+    }
+}
+
 function render () {
     const app = document.getElementById("app");
     if(app.firstChild) {
@@ -34,6 +46,24 @@ function render () {
     }
 
     const panel = new div();
+    const title = new h4("Personal Money Mangement");
+    panel.addChildElement(title.element);
+    const form = new div("form-transactions");
+    const monthSelect = new Select("month");
+    for (const month of year.months){
+        monthSelect.addOption(month.name);
+    }
+    const typeSelect = new Select("type");
+    typeSelect.addOption("income")
+    typeSelect.addOption("expense")
+    // const categoryInputText = new Input();
+    // const valueInputNumber = new Input();
+    form.addChildElement(monthSelect.element);
+    form.addChildElement(typeSelect.element);
+    panel.addChildElement(form.element);
+    
+
+
     const grafic = new Grafic();
     for (const month of year.months) {
         grafic.addColumn(month.totalizador.saldo, month.name);
