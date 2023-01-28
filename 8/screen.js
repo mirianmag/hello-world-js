@@ -33,7 +33,7 @@ class Screen {
         const amount = document.getElementById("amount");
         this.year.addTransaction(month.value, new Transaction(category.value, type.value, parseFloat(amount.value)));
         this.year.calculateBalance();
-        render();
+        this.render();
         month.value = this.year.months[0].name;
         type.value = "income";
         category.value = "";
@@ -41,15 +41,11 @@ class Screen {
     }
 
     render () {
-        const app = document.getElementById("app");
-        if(app.firstChild) {
-            app.firstChild.remove();
-        }
-    
-        const panel = new div();
+        document.getElementById("app").remove();
+        const app = new Div("app");
         const title = new h4("Personal Money Mangement");
-        panel.addChildElement(title.element);
-        const form = new div("form-transactions");
+        app.addChildElement(title.element);
+        const form = new Div("form-transactions");
         const monthSelect = new Select("month");
         for (const month of this.year.months){
             monthSelect.addOption(month.name);
@@ -68,17 +64,17 @@ class Screen {
         form.addChildElement(categoryInputText.element);
         form.addChildElement(valueInputNumber.element);
         form.addChildElement(addButton.element);
-        panel.addChildElement(form.element);
+        app.addChildElement(form.element);
     
         const grafic = new Grafic();
         for (const month of this.year.months) {
             grafic.addColumn(month.totalizador.saldo, month.name);
         }
-        panel.addChildElement(grafic.element);
+        app.addChildElement(grafic.element);
     
         for (const month of this.year.months) {
             const monthName = new h4(month.name);
-            panel.addChildElement(monthName.element);
+            app.addChildElement(monthName.element);
     
             const tableTransaction = new Table("table-transactions");
             tableTransaction.addRow("th", ["Category", "Value"]);
@@ -89,8 +85,9 @@ class Screen {
             tableTransaction.addRow("th", ["Return", formatMoney(month.totalizador.rendimentos)]);
             tableTransaction.addRow("th", ["Amount", formatMoney(month.totalizador.saldo)]);
     
-            panel.addChildElement(tableTransaction.element);
+            app.addChildElement(tableTransaction.element);
         }
-        app.appendChild(panel.element);
+       const [body] = document.getElementsByTagName("body");
+       body.appendChild(app.element);
     }
 }
