@@ -8,6 +8,10 @@ class Month {
         this.transactions = [];
     }
 
+    arredondar (valor) {
+        return Math.round(valor*100)/100;
+    }
+
     addTransaction (transaction){
         this.transactions.push(transaction);
     }
@@ -45,7 +49,7 @@ class Month {
         const distribuicaoDeDespesas = []
         for (const transaction of this.transactions) {
             if(transaction.type === "expense") {
-                const percentual = arredondar((transaction.value/this.totalizador.despesas)*100)
+                const percentual = this.arredondar((transaction.value/this.totalizador.despesas)*100)
                 distribuicaoDeDespesas.push({category: transaction.category, percentual: percentual})
             }        
         }
@@ -55,24 +59,24 @@ class Month {
     apurarJuros () {
         if (this.totalizador.saldo < 0) {
             this.totalizador.juros = this.calcularJuros( this.totalizador.saldo);
-            this.totalizador.saldo = arredondar(this.totalizador.saldo + this.totalizador.juros)
+            this.totalizador.saldo = this.arredondar(this.totalizador.saldo + this.totalizador.juros)
         } 
     }
 
     apurarRendimentos () {
         if (this.totalizador.saldo > 0) {
             this.totalizador.rendimentos = this.calcularRendimentos( this.totalizador.saldo);
-            this.totalizador.saldo = arredondar(this.totalizador.saldo + this.totalizador.rendimentos);
+            this.totalizador.saldo = this.arredondar(this.totalizador.saldo + this.totalizador.rendimentos);
         }
     }
     
     calcularJuros(valor) {
-        const juros = arredondar(valor * 0.1)
+        const juros = this.arredondar(valor * 0.1)
         return juros
     }
     
     calcularRendimentos(valor) {
-        const rendimentos = arredondar(valor * 0.005)
+        const rendimentos = this.arredondar(valor * 0.005)
         return rendimentos
     }
 

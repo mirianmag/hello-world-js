@@ -26,6 +26,10 @@ class Screen {
         this.year = year;
     }
 
+    formatMoney (value) {
+        return new Intl.NumberFormat("en-us", { currency: "USD", style: "currency"}).format(value);
+    }
+
     addTransaction() {
         const month = document.getElementById("month");
         const category = document.getElementById("category");
@@ -81,9 +85,9 @@ class Screen {
             for (const transaction of month.transactions) {
                 tableTransaction.addRow("td", [transaction.category, formatMoney(transaction.getValueString())]);
             }
-            tableTransaction.addRow("th", ["Tax", formatMoney(month.totalizador.juros)]);
-            tableTransaction.addRow("th", ["Return", formatMoney(month.totalizador.rendimentos)]);
-            tableTransaction.addRow("th", ["Amount", formatMoney(month.totalizador.saldo)]);
+            tableTransaction.addRow("th", ["Tax", this.formatMoney(month.totalizador.juros)]);
+            tableTransaction.addRow("th", ["Return", this.formatMoney(month.totalizador.rendimentos)]);
+            tableTransaction.addRow("th", ["Amount", this.formatMoney(month.totalizador.saldo)]);
     
             app.addChildElement(tableTransaction.element);
         }
